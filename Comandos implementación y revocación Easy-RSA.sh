@@ -4,7 +4,7 @@ mkdir /home/$USER/ca
 mkdir /home/$USER/ca/easy-rsa/
 
 #Creación del enlace simbólico
-ln -s /usr/share/easy-rsa/* /home/$USERca/easy-ras/
+ln -s /usr/share/easy-rsa/* /home/$USER/ca/easy-ras/
 
 chmod -R 744 /home/$USER/ca
 
@@ -38,10 +38,14 @@ sudo update-ca-certificates
 
 mkdir /home/sergio/Documentos/prueba-csr
 
-
+#Creamos  la clave privada
 openssl genrsa -out irelia-server.key
+
+#Creamos la solicitud
 openssl req -new -key irelia-server.key -out  irelia-server.req
-openssl req -in irelia-server.req -noout -subject (Comprobación)
+
+#Comprobación
+openssl req -in irelia-server.req -noout -subject
 
 scp irelia-server.req administrador@192.168.1.92:/home/administrador/irelia-server.req
 
