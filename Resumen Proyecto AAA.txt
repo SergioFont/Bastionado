@@ -1,0 +1,76 @@
+Esquema Proyecto AAA
+
+Configuración interfaces de red:
+
+Servidor Radius
+	AP (192.168.0.170)
+
+Cliente Radius 
+	AP (192.168.0.171)
+	RI (192.168.1.4)
+
+Windows 10
+	RI (192.168.1.5)
+
+---------
+Servidor:
+---------
+Cambiar las ips		
+	1 Adaptador Puente (192.168.0.170)
+Instalamos la característica de Servicios de acceso y directivas de redes
+	Generará las normas de forma automática en el firewall
+
+---------
+Cliente :
+---------
+Cambiamos nombre (cli-radius)
+Agregar 2 interfaces
+	1 Adaptador Puente (192.168.0.171)
+	1 Red Interna (192.168.1.4)
+Unimos al dominio del srv (laplana.sangva.local)
+Instalamos el rol Enrutamiento y acceso remoto
+	Incluimos DirectAccess y VPN y Enrutamiento
+
+---------
+Servidor:
+---------
+Creamos el user del dominio sergio
+	Permitimos Controlar acceso a traves de directiva NPS
+	Lo añadimos al grupo radius
+Windows + R: nps.msc
+	Registramos servidor en AD
+Configurar VPN
+	Ponemos nombre a la conexion de VPN (LAPLANA VPN)
+	Añadimos el clienteradius a la VPN (Secreto: Camina-100)
+	Escogemos autenticación cifrada de MSCHAPv2
+	Escogemos el grupo radius
+	Especificamos los filtro de entrada IPv4 TCP y UDP puerto origen y destino 3389
+	Escogemos el cifrado de 128 bits
+
+---------
+Cliente :
+---------
+Windows + R: rrasmgmt.msc
+	Acceso remoto
+	VPN
+	Escogemos la red interna
+	Creamos rango de IPs acorde a la IP del adaptador Puente
+	Sí, Configuramos el server para que trabaj con un server RADIUS
+	Ponemos la IP del servidor RADIUS y el secreto compartido
+	Por último en propiedades del cliente RADIUS en Enrutamiento y 
+	acceso remoto ponemos el método de autenticación RADIUS
+
+---------
+W10     :
+---------
+Cambiamos el nombre del equipo
+	cliente
+Cambiamos la dirección IP (red interna)
+	192.168.1.5
+Configuramos la VPN
+	Tipo de VPN (PPTP)
+	sergio@san-gva.local
+
+
+
+
