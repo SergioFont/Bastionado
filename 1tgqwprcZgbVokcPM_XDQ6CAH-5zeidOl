@@ -1,0 +1,57 @@
+Monitorización de los inicios de sesión en Windows
+
+Trabajo a realizar
+
+A continuación, tienes que realizar las configuraciones que entiendas 
+necesarias en tu subdominio para ayudar a cumplir con las siguientes necesidades:
+
+    Se desea eliminar los intentos de inicio de sesión por los usuarios de tu subdominio 
+    por fuerza bruta. Puedes proponer un máximo de intentos y un período de bloqueo que 
+    entiendas que se ajusta al contexto e tu subdominio/proyecto.
+    
+    Se desea auditar los inicios de sesión para poder comprobar diariamente los 
+    inicios de sesión, tanto los correctos como los fallidos.
+
+
+Batería de pruebas
+
+En el punto 3 además de aportar las capturas de pantalla de las distintas configuraciones 
+que has realizado, además has de realizar una batería de pruebas que permita comprobar 
+lo siguiente:
+
+    Pruebas de acceso
+        Realiza varias pruebas de acceso e intentos fallidos con uno o dos usuarios,
+        diferentes al administrador, de forma que se produzca algún bloqueo de cuenta.
+        ¿Puede bloquearse un usuario administrador? Si quieres quieres averiguarlo 
+        haciendo pruebas, créate otro usuario administrador y prueba intentos erróneos 
+        en el mismo.
+    Consulta del registro de eventos
+        Tienes que comprobar si se han reflejado los inicios de sesión en el registro 
+        del sistema. Ejecuta el comando eventvwr.msc para acceder al visor de eventos.
+
+
+Resumen:
+
+Directiva bloqueo de cuentas
+
+Bosque: san-gva.local > Dominios > san-gva.local > Objetos de directiva de grupo
+> Nuevo (Nombre) > 
+
+Dentro del Editor de directivas de grupo
+Configuración del equipo > Directivas > Configuración de Windows 
+> Configuración de seguridad > Directivas de cuenta > Directivas de bloqueo de cuentas
+
+Default Domain Policy > Configuración del equipo > Configuración de Windows 
+> Configuración de seguridad > Directivas de cuenta > Directiva de bloqueo de cuenta 
+> Umbral de bloqueo de cuenta
+
+gpupdate /force
+
+
+Directiva inicio de sesión y visor de eventos
+
+Configuración del equipo > Configuración de Windows > Configuración de Seguridad
+> Directivas locales > Directiva de auditoria > Auditar eventos de inicio de sesión
+
+Ejecutamos eventvwr.msc para entrar en el visor de eventos.
+Registros de Windows > Seguridad
